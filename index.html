@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #66c2ff, #b3ccff);
+            color: #333;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0077cc;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #0077cc;
+            font-size: 1.2em;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #005580;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        button:hover {
+            background-color: #004466;
+        }
+
+        #generated-password {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .info {
+            margin-top: 30px;
+            color: #555;
+        }
+
+        #copy-button {
+            background-color: #008000;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        #copy-button:hover {
+            background-color: #006600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quick PassGen</h1>
+        <form action="{{ url_for('generate_password') }}" method="post">
+            <label for="length">Password Length:</label>
+            <input type="number" id="length" name="length" min="6" max="20" required>
+            
+            <label>Password Options:</label>
+            <div>
+                <input type="checkbox" id="uppercase" name="uppercase" checked>
+                <label for="uppercase">Uppercase Letters</label>
+            </div>
+            <div>
+                <input type="checkbox" id="lowercase" name="lowercase" checked>
+                <label for="lowercase">Lowercase Letters</label>
+            </div>
+            <div>
+                <input type="checkbox" id="numbers" name="numbers" checked>
+                <label for="numbers">Numbers</label>
+            </div>
+            <div>
+                <input type="checkbox" id="symbols" name="symbols" checked>
+                <label for="symbols">Symbols</label>
+            </div>
+
+            <button type="submit">Generate Password</button>
+        </form>
+        <p id="generated-password">{{ generated_password }}</p>
+
+        <!-- Add a copy button -->
+        <form action="{{ url_for('copy_password') }}" method="post" style="display: inline;">
+            <input type="hidden" id="password_to_copy" name="password_to_copy" value="{{ generated_password }}">
+            <button type="submit" id="copy-button">Copy Password</button>
+        </form>
+
+        <div class="info">
+            <h2>Why Use a Password Generator?</h2>
+            <p>Phishing, stolen credentials, and human error challenge your password security. Take action and improve your defense against them.</p>
+            <ul>
+                <li>With a password generator, you don’t need to fuss with thinking of new passwords. It will generate a unique password for each account you create.</li>
+                <li>Ensure your passwords are at least 12 characters long and contain letters, numbers, and special characters.</li>
+                <li>Avoid using personally identifiable information in your passwords.</li>
+                <li>Update passwords regularly and avoid password reuse.</li>
+                <li>Never share your passwords via email or text message.</li>
+                <li>Use a password manager to save and secure your passwords.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
